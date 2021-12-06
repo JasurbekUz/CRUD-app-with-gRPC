@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package expenditure;
+
+option go_package = "wallet/proto_files/expenditure";
+
+message Expenditure {
+	int64 ExpenditureId = 1;
+	double Amount = 2;
+	string Summary = 3;
+	string SpentAt = 4;
+}
+
+message Identificator {
+	string Username = 1;
+	string Password = 2;
+}
+
+message PostExpenditure {
+	Identificator Identificator = 1;
+	double Amount = 2;
+	string Summary = 3;
+
+}
+
+message ListOfExpenditure {
+
+	repeated Expenditure Expenditures = 1;
+}
+
+service ExpenditureService {
+	rpc PostNewExpenditure (PostExpenditure) returns (PostExpenditure) {}
+	rpc GetListOfExpenditure (Identificator) returns (ListOfExpenditure) {}
+
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "wallet/proto_files/user";
+
+message User {
+	int64 UserId = 1;
+	string Fullname = 2;
+	string UserName = 3;
+	double TotalMoney = 4;
+}
+
+message PostUser {
+	int64 UserId = 1;
+	string Fullname = 2;
+	string UserName = 3;
+	string Password  = 4;
+}
+
+message GetBasicInfo {
+	string Password = 1;
+}
+
+message ListOfPostedUsersReq {}
+
+message ListOfPostedUsersRes {
+
+	repeated PostUser AllUsers = 1;
+}
+
+service UserSevice {
+
+	rpc PostNewUser(PostUser) returns (User) {} 
+	rpc GetUserBasicInfo(GetBasicInfo) returns (User) {} 
+	rpc GetUsersList(ListOfPostedUsersReq) returns (ListOfPostedUsersRes) {} 
+}

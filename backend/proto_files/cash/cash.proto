@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package cash;
+
+option go_package = "wallet/proto_files/cash";
+
+message Cash {
+	int64 CashId = 1;
+	double Amount = 2;
+	string Summary = 3;
+	string ReceivedAt = 4;
+}
+
+message Identificator {
+	string Username = 1;
+	string Password = 2;
+}
+
+message PostCash {
+	Identificator Identificator = 1;
+	double Amount = 2;
+	string Summary = 3;
+
+}
+
+message ListOfCashe {
+
+	repeated Cash Cashes = 1;
+}
+
+service CashService {
+	rpc PostNewCash (PostCash) returns (Cash) {}
+	rpc GetListOfCashe (Identificator) returns (ListOfCashe) {}
+
+}
