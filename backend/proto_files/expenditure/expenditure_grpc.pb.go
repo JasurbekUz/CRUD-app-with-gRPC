@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ExpenditureServiceClient interface {
-	PostNewExpenditure(ctx context.Context, in *PostExpenditure, opts ...grpc.CallOption) (*PostExpenditure, error)
+	PostNewExpenditure(ctx context.Context, in *PostExpenditure, opts ...grpc.CallOption) (*Expenditure, error)
 	GetListOfExpenditure(ctx context.Context, in *Identificator, opts ...grpc.CallOption) (*ListOfExpenditure, error)
 }
 
@@ -30,8 +30,8 @@ func NewExpenditureServiceClient(cc grpc.ClientConnInterface) ExpenditureService
 	return &expenditureServiceClient{cc}
 }
 
-func (c *expenditureServiceClient) PostNewExpenditure(ctx context.Context, in *PostExpenditure, opts ...grpc.CallOption) (*PostExpenditure, error) {
-	out := new(PostExpenditure)
+func (c *expenditureServiceClient) PostNewExpenditure(ctx context.Context, in *PostExpenditure, opts ...grpc.CallOption) (*Expenditure, error) {
+	out := new(Expenditure)
 	err := c.cc.Invoke(ctx, "/expenditure.ExpenditureService/PostNewExpenditure", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (c *expenditureServiceClient) GetListOfExpenditure(ctx context.Context, in 
 // All implementations must embed UnimplementedExpenditureServiceServer
 // for forward compatibility
 type ExpenditureServiceServer interface {
-	PostNewExpenditure(context.Context, *PostExpenditure) (*PostExpenditure, error)
+	PostNewExpenditure(context.Context, *PostExpenditure) (*Expenditure, error)
 	GetListOfExpenditure(context.Context, *Identificator) (*ListOfExpenditure, error)
 	mustEmbedUnimplementedExpenditureServiceServer()
 }
@@ -61,7 +61,7 @@ type ExpenditureServiceServer interface {
 type UnimplementedExpenditureServiceServer struct {
 }
 
-func (UnimplementedExpenditureServiceServer) PostNewExpenditure(context.Context, *PostExpenditure) (*PostExpenditure, error) {
+func (UnimplementedExpenditureServiceServer) PostNewExpenditure(context.Context, *PostExpenditure) (*Expenditure, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostNewExpenditure not implemented")
 }
 func (UnimplementedExpenditureServiceServer) GetListOfExpenditure(context.Context, *Identificator) (*ListOfExpenditure, error) {

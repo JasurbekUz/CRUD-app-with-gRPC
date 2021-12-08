@@ -5,31 +5,31 @@ package expenditure;
 option go_package = "wallet/proto_files/expenditure";
 
 message Expenditure {
-	int64 ExpenditureId = 1;
-	double Amount = 2;
-	string Summary = 3;
-	string SpentAt = 4;
+	int64 expenditureId = 1;
+	double amount = 2;
+	string summary = 3;
+	string spentAt = 4;
 }
 
 message Identificator {
-	string Username = 1;
-	string Password = 2;
+	string username = 1;
+	string password = 2;
 }
 
 message PostExpenditure {
-	Identificator Identificator = 1;
-	double Amount = 2;
-	string Summary = 3;
+	Identificator identificator = 1;
+	double amount = 2;
+	string summary = 3;
 
 }
 
 message ListOfExpenditure {
 
-	repeated Expenditure Expenditures = 1;
+	repeated Expenditure expenditures = 1;
 }
 
 service ExpenditureService {
-	rpc PostNewExpenditure (PostExpenditure) returns (PostExpenditure) {}
+	rpc PostNewExpenditure (PostExpenditure) returns (Expenditure) {}
 	rpc GetListOfExpenditure (Identificator) returns (ListOfExpenditure) {}
 
 }

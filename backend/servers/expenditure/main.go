@@ -3,7 +3,8 @@ package main
 import (
 	"log"
 	"net"
-	//"context"
+	"errors"
+	"context"
 	"wallet/database"
 	"gorm.io/gorm"
 	"google.golang.org/grpc"
@@ -14,6 +15,20 @@ type Server struct {
 
 	DB *gorm.DB
 	expenditure.UnimplementedExpenditureServiceServer
+}
+
+func (s Server) PostNewExpenditure (ctx context.Context, in *expenditure.PostExpenditure) (exp *expenditure.Expenditure, err error) {
+
+	err = s.DB.Raw(database.CREATE_NEW_EXP,
+		in.GetIdentificator().GetUsername(), 
+		in.GetIdentificator().GetPassword(),
+		in.GetAmount(),
+		in.GetSummary(),
+		).Scan(&exp).Error
+
+	errors.Is(err, gorm.ErrRecordNotFound)
+
+	return exp, err
 }
 
 func main () {

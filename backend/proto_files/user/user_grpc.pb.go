@@ -19,7 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserSeviceClient interface {
 	PostNewUser(ctx context.Context, in *PostUser, opts ...grpc.CallOption) (*User, error)
-	GetUserBasicInfo(ctx context.Context, in *GetBasicInfo, opts ...grpc.CallOption) (*User, error)
+	GetUserBasicInfo(ctx context.Context, in *Identificator, opts ...grpc.CallOption) (*User, error)
 	GetUsersList(ctx context.Context, in *ListOfPostedUsersReq, opts ...grpc.CallOption) (*ListOfPostedUsersRes, error)
 }
 
@@ -40,7 +40,7 @@ func (c *userSeviceClient) PostNewUser(ctx context.Context, in *PostUser, opts .
 	return out, nil
 }
 
-func (c *userSeviceClient) GetUserBasicInfo(ctx context.Context, in *GetBasicInfo, opts ...grpc.CallOption) (*User, error) {
+func (c *userSeviceClient) GetUserBasicInfo(ctx context.Context, in *Identificator, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
 	err := c.cc.Invoke(ctx, "/user.UserSevice/GetUserBasicInfo", in, out, opts...)
 	if err != nil {
@@ -63,7 +63,7 @@ func (c *userSeviceClient) GetUsersList(ctx context.Context, in *ListOfPostedUse
 // for forward compatibility
 type UserSeviceServer interface {
 	PostNewUser(context.Context, *PostUser) (*User, error)
-	GetUserBasicInfo(context.Context, *GetBasicInfo) (*User, error)
+	GetUserBasicInfo(context.Context, *Identificator) (*User, error)
 	GetUsersList(context.Context, *ListOfPostedUsersReq) (*ListOfPostedUsersRes, error)
 	mustEmbedUnimplementedUserSeviceServer()
 }
@@ -75,7 +75,7 @@ type UnimplementedUserSeviceServer struct {
 func (UnimplementedUserSeviceServer) PostNewUser(context.Context, *PostUser) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostNewUser not implemented")
 }
-func (UnimplementedUserSeviceServer) GetUserBasicInfo(context.Context, *GetBasicInfo) (*User, error) {
+func (UnimplementedUserSeviceServer) GetUserBasicInfo(context.Context, *Identificator) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserBasicInfo not implemented")
 }
 func (UnimplementedUserSeviceServer) GetUsersList(context.Context, *ListOfPostedUsersReq) (*ListOfPostedUsersRes, error) {
@@ -113,7 +113,7 @@ func _UserSevice_PostNewUser_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _UserSevice_GetUserBasicInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBasicInfo)
+	in := new(Identificator)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func _UserSevice_GetUserBasicInfo_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: "/user.UserSevice/GetUserBasicInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserSeviceServer).GetUserBasicInfo(ctx, req.(*GetBasicInfo))
+		return srv.(UserSeviceServer).GetUserBasicInfo(ctx, req.(*Identificator))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -5,33 +5,33 @@ package user;
 option go_package = "wallet/proto_files/user";
 
 message User {
-	int64 UserId = 1;
-	string Fullname = 2;
-	string UserName = 3;
-	double TotalMoney = 4;
+	int64 userId = 1;
+	string fullName = 2;
+	string username = 3;
+	double totalMoney = 4;
 }
 
 message PostUser {
-	int64 UserId = 1;
-	string Fullname = 2;
-	string UserName = 3;
-	string Password  = 4;
+	string fullname = 1;
+	string username = 2;
+	string password  = 3;
 }
 
-message GetBasicInfo {
-	string Password = 1;
+message Identificator {
+	string username = 1;	
+	string password = 2;
 }
 
 message ListOfPostedUsersReq {}
 
 message ListOfPostedUsersRes {
 
-	repeated PostUser AllUsers = 1;
+	repeated PostUser allUsers = 1;
 }
 
 service UserSevice {
 
 	rpc PostNewUser(PostUser) returns (User) {} 
-	rpc GetUserBasicInfo(GetBasicInfo) returns (User) {} 
+	rpc GetUserBasicInfo(Identificator) returns (User) {} 
 	rpc GetUsersList(ListOfPostedUsersReq) returns (ListOfPostedUsersRes) {} 
 }

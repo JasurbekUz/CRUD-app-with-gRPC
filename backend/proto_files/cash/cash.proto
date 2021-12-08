@@ -5,27 +5,27 @@ package cash;
 option go_package = "wallet/proto_files/cash";
 
 message Cash {
-	int64 CashId = 1;
-	double Amount = 2;
-	string Summary = 3;
-	string ReceivedAt = 4;
+	int64 cashId = 1;
+	double amount = 2;
+	string summary = 3;
+	string receivedAt = 4;
 }
 
 message Identificator {
-	string Username = 1;
-	string Password = 2;
+	string username = 1;
+	string password = 2;
 }
 
 message PostCash {
-	Identificator Identificator = 1;
-	double Amount = 2;
-	string Summary = 3;
+	Identificator identificator = 1;
+	double amount = 2;
+	string summary = 3;
 
 }
 
 message ListOfCashe {
 
-	repeated Cash Cashes = 1;
+	repeated Cash cashes = 1;
 }
 
 service CashService {
